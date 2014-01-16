@@ -12,17 +12,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 function kento_like_post_latest_jquery() {
 	wp_enqueue_script('jquery');
-
-	
 }
 add_action('init', 'kento_like_post_latest_jquery');
 
 
-
-
 //Include Javascript library
 wp_enqueue_script('kento_like_post_js', plugins_url( '/js/kento_like_post.js' , __FILE__ ) , array( 'jquery' ));
-// including ajax script in the plugin Myajax.ajaxurl
+// including ajax script in the plugin ajax.ajaxurl
 wp_localize_script( 'kento_like_post_js', 'kento_like_post_ajax', array( 'kento_like_post_ajaxurl' => admin_url( 'admin-ajax.php')));
 
 define('KENTO_LIKE_POST_PLUGIN_PATH', WP_PLUGIN_URL . '/' . plugin_basename( dirname(__FILE__) ) . '/' );
@@ -188,7 +184,7 @@ function kento_like_post_who_voted($postid)
 
 function kento_like_post_insert()
 	{
-	$postid = $_POST['postid'];
+	$postid = (int)$_POST['postid'];
 	$votestatus = $_POST['votestatus'];
 	$userid = get_current_user_id();
     global $wpdb;
@@ -201,22 +197,16 @@ function kento_like_post_insert()
 		{
 			if($votestatus=="voted")
 				{
-
-					$wpdb->query("DELETE FROM  $table WHERE userid=$userid AND  postid =$postid");
-					
+					$wpdb->delete( $table, array( 'userid' => $userid,'postid'=>$postid ), array( '%d','%d' ) );
 				}
-			elseif($votestatus=="notvoted")
-				{
-					$wpdb->query("UPDATE $table SET count = count+1 WHERE postid = '".$postid."'");
-				}
-
 		}
 	
 	else 
 		{
-
-			
-			$wpdb->query("INSERT INTO $table VALUES('',$postid,$userid)");
+			$wpdb->insert(	$table, 	
+							array( 	'id' => '', 'postid' => $postid,'userid' => $userid	),
+							array('%d', '%d','%d')
+						);			
 		}
 
 		
@@ -224,10 +214,6 @@ function kento_like_post_insert()
 
 echo kento_like_post_who_voted($postid);
 echo "<div style='display:none'><span  id='has-vote-update'>".kento_like_post_has_vote($postid)."</span><div>";
-
-
-
-
 
 
 	die();
@@ -251,12 +237,14 @@ function kento_like_post_login_box()
 	
 	$login_box .= "<p class='login-password'><label for='user_pass'>Password</label><input type='password' name='pwd' id='pwd' size='20' /></p>";
 	$login_box .= "<p class='login-remember'><input name='rememberme' id='rememberme' type='checkbox' checked='checked' value='forever' /><label for='rememberme'>Remember me</label></p>";
-	$login_box .= "<p class='login-submit'><input type='submit' name='submit' value='Send' class='button' /></p>";
+	$login_box .= "<p class='login-submit'><input type='submit' name='submit' value='Login' class='button' /></p>";
 	$login_box .= "<p>";
 
  	$login_box .= "<input type='hidden' name='redirect_to' value='".$_SERVER['REQUEST_URI']."' />";   
 	$login_box .= "</p>";
 	$login_box .= "</form>";
+	$login_box .= "Or";
+	$login_box .= "<div class='register-box'><a href='".site_url('/wp-login.php?action=register')."'>Register</a></div>";
 	$login_box .= "<div>";
 	return $login_box ;
 	}
