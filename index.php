@@ -3,7 +3,7 @@
 Plugin Name: Kento Like Post
 Plugin URI: http://kentothemes.com
 Description: Post Like Button For WordPress like Facebook
-Version: 1.0
+Version: 1.1
 Author: KentoThemes
 Author URI: http://kentothemes.com
 License: GPLv2 or later
