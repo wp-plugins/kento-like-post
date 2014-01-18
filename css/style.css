@@ -49,8 +49,8 @@
 .vote-text {
   color: #FFFFFF;
   float: right;
-  font-size: 15px;
-  padding-right: 5px;
+  font-size: 14px;
+  padding-right: 7px;
 }
 
 .voted, .notvoted, .vote-text{
@@ -77,12 +77,28 @@
   padding-top: 16px;
   position: fixed;
   text-align: center;
-  top: 30%;
+  top: 20%;
   width: 339px;
   z-index: 9999;
   display:none;
 
 }
+
+#kento-like-post-login input {
+  margin-left: 10px !important;
+}
+
+
+.register-box {
+  margin-bottom: 10px;
+}
+
+.register-box a {
+  color: #333333 !important;
+  font-weight: bold;
+}
+
+
 
 #black-bg{
   background-color: #000000;
