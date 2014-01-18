@@ -50,6 +50,9 @@ Plugin Features
 
 
 == Changelog ==
+= 1.1 =
+* SQL Update
+* Add register link to popup login box
 
 = 1.0 =
 * Initial release
