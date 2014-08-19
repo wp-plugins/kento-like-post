@@ -1,5 +1,5 @@
 === Kento Like Post ===
-Contributors: hasanrang05
+Contributors: kentothemes
 Donate link: 
 Tags:  post vote, wordpress vote, like button, post like, wp like, wordpress like
 Requires at least: 3.5
